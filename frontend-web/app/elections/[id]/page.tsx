@@ -247,13 +247,39 @@ export default function ElectionDetailPage({
         message: "Thành Công! Lá phiếu ẩn danh của bạn đã được ghi nhận.",
       }));
     } catch (error: any) {
-      console.error(error);
-      const errorMsg = error.reason || error.message || "Lỗi không xác định.";
-      // Hiển thị lỗi từ Smart Contract (VD: "Ban da bo phieu cho cuoc bau cu nay roi")
+      console.error("Chi tiết lỗi từ Blockchain:", error);
+
+      let friendlyMessage =
+        "Đã xảy ra lỗi không xác định. Vui lòng thử lại sau.";
+      const rawError = error?.message || error?.reason || "";
+
+      // 1. Người dùng bấm "Từ chối" (Reject) trên cửa sổ MetaMask
+      if (error.code === "ACTION_REJECTED" || error.code === 4001) {
+        friendlyMessage = "Bạn đã từ chối ký giao dịch trên ví MetaMask.";
+      }
+      // 2. Bắt trực tiếp thông điệp (Reason) từ Smart Contract của Hà (nếu có)
+      else if (error.reason) {
+        friendlyMessage = `Hệ thống từ chối: ${error.reason}`;
+      }
+      // 3. Xử lý cái đống JSON rác rưởi (CALL_EXCEPTION) như trong ảnh của bạn
+      else if (
+        rawError.includes("CALL_EXCEPTION") ||
+        rawError.includes("execution reverted")
+      ) {
+        friendlyMessage =
+          "Giao dịch bị từ chối! Ví hoặc Số điện thoại này ĐÃ ĐƯỢC SỬ DỤNG để bỏ phiếu cho cuộc bầu cử này.";
+      }
+      // 4. Quét các trường hợp lỗi mạng rớt...
+      else if (rawError.includes("network")) {
+        friendlyMessage =
+          "Lỗi kết nối mạng lưới Oasis Sapphire. Vui lòng kiểm tra lại internet.";
+      }
+
+      // Cập nhật lại UI Modal với thông báo cực kỳ lịch sự và chuyên nghiệp
       setModalState({
         isOpen: true,
         status: "error",
-        message: errorMsg,
+        message: friendlyMessage,
         txHash: "",
       });
     }
