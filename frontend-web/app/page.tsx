@@ -260,7 +260,7 @@ export default function HomePage() {
               <p className="su d3 hero-sub">
                 Dự án <strong className="text-slate-700">Private Voting dApp</strong> do đội ngũ{" "}
                 <strong className="text-slate-700">dAppNhaLam</strong> kiến tạo.
-                Giải quyết triệt để "áp lực đồng lứa" và sự thao túng kết quả trong các tổ chức DAO nhờ công nghệ bảo mật thế hệ mới.
+                Giải quyết triệt để &quot;áp lực đồng lứa&quot; và sự thao túng kết quả trong các tổ chức DAO nhờ công nghệ bảo mật thế hệ mới.
               </p>
             )}
 

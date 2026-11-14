@@ -1,8 +1,8 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\Duy_Project\\DAppNhaLam\\backend-contracts\\contracts\\PrivateVoting.sol": {
-      "lastModificationDate": 1778337824789,
+    "C:\\MyProject\\DAppNhaLam\\backend-contracts\\contracts\\PrivateVoting.sol": {
+      "lastModificationDate": 1794243156259,
       "contentHash": "51821c5ade5bfad85e672bfe6c3e987e",
       "sourceName": "contracts/PrivateVoting.sol",
       "solcConfig": {
